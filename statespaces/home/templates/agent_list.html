@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    
+    <a> About Agent List</a>
+
+    <dir>
+        <ul>
+            {% for agent in agents %}
+                <li>
+                    <strong>{{ agent.name }}</strong>
+                    <ul>
+                        <li>Building: {{ agent.building.name }}</li>
+                    </ul>
+                </li>
+            {% empty %}
+                <li>No agents found.</li>
+            {% endfor %}
+        </ul>
+    </dir>
+
+{% endblock %}

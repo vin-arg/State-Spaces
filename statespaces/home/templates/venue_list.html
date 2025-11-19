@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    
+    <a> About Venue List</a>
+    <dir>
+        <ul>
+            {% for v in venues %}
+            <li>
+                <strong>{{ v.name }}</strong>
+                <br>Type: {{ v.venue_type }}
+                <br>Floor: {{ v.floor }}
+                <br>Building: {{ v.building.name }}
+                <br>Capacity: {{ v.capacity }}
+                <br> Renovation: 
+                    {% if v.under_renovation %}
+                        Under Renovation
+                    {% else %}
+                        Available
+                    {% endif %}
+            </li>
+            <br>
+            {% empty %}
+                <li>No venues available.</li>
+            {% endfor %}
+        </ul>
+    </dir>
+
+{% endblock %}

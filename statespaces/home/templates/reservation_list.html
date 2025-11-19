@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
-    
-    <a> About Reservation List</a>
-
+<h1>Reservation List</h1>
+    <div>
+        <ul>
+            {% for reservation in reservations %}
+                <li>
+                    <strong>Guest: {{ reservation.guest_name }}</strong>
+                    <ul>
+                        <li>Agent: {{ reservation.agent.name }}</li>
+                        <li>Building: {{ reservation.building.name }}</li>
+                        <li>Date: {{ reservation.date }}</li>
+                    </ul>
+                </li>
+            {% empty %}
+                <li>No reservations found.</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

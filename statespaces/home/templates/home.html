@@ -5,5 +5,31 @@
 
     
     <a> About State Spaces</a>
-
+    <br><a>maybe put desc of system here</a>
+    <br><a>copy pasted desc for example purposes lolz</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br><a>The following section provides an overview of the group’s implemented system based on State Spaces’ business processes. (Prototype of ONE function. Postgres ?and django?)</a>
+    <br>
+    <br><a>States Spaces maintains and provides venues for customers to reserve. Buildings owned by the company hold one or more venues. Each building is assigned a Building_ID along with a name, address, and city.</a>
+    <br>
+    <br><a>An agent manages one or more venues within the same building. Agents also manage teams that help with different aspects of venues. Agents have an Agent_ID and name, while teams have a Team_ID and job description.</a>
+    <br>
+    <br><a>Each venue is assigned a Venue_ID along with a name, capacity, type, floor, floor_area in sqm, and an under_renovation boolean attribute reflective of the venue’s status. Renovations for each venue are kept track of, and each renovation has a Renovation_ID, start_date, and end_date.</a>
+    <br>
+    <br><a>An amenity represents an item or furnishing of a particular make and model. It is characterized by its Amenity_ID, type, and description. Amenities are used by venues, and the quantity of a certain amenity for a particular venue is stored as a relationship attribute.</a>
+    <br>
+    <br><a>Customers are characterized by their Customer_ID, name, birthday, and location. They can make reservations which, as an associative entity, have a Reservation_ID, participant quantity, and start and end times in both days and hours. </a>
+    <br>
+    <br><a>Customers can reserve one or more venues under the following conditions: 1) the participant quantity does not exceed the venue capacity, 2) the specified time period does not overlap with preexisting reservations, and 3) the chosen venue is not under renovation.</a>
+    <br>
+    <br><a>Pencil bookings are not permitted, and cancelled or rescheduled reservations are reflected in the system.
+</a>
+    <br>
+    <br><a>It is assumed that customers deal with the agent corresponding to their targeted venue, and this agent enforces restrictions and handles the necessary arrangements for customer reservations (i.e. quotation, reservation confirmation, etc.).</a>
+    <br>
+    
 {% endblock %}

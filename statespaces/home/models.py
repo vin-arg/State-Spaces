@@ -11,6 +11,7 @@ class Home(models.Model):
     
 
 class Building(models.Model):
+    building_id = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=300)
     city = models.CharField(max_length=100)
@@ -20,11 +21,12 @@ class Building(models.Model):
 
 
 class Amenity(models.Model):
-    name = models.CharField(max_length=200)
+    amenity_id = models.CharField(max_length=20)
+    type = models.CharField(max_length=200)
     description = models.TextField(blank=True)
 
     def __str__(self):
-        return self.name
+        return self.type
 
 class VenueAmenity(models.Model):
     venue = models.ForeignKey("Venue", on_delete=models.CASCADE)
@@ -35,11 +37,11 @@ class VenueAmenity(models.Model):
 class Venue(models.Model):
     venue_id = models.CharField(max_length=20)
     name = models.CharField(max_length=200)
+    capacity = models.PositiveIntegerField()
     venue_type = models.CharField(max_length=100)  # Meeting room, Pantry, etc.
+    floor_area = models.PositiveIntegerField()
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
     floor = models.CharField(max_length=20)
-    capacity = models.PositiveIntegerField()
-    floor_area = models.PositiveIntegerField()
     under_renovation = models.BooleanField(default=False)
 
     def __str__(self):
@@ -47,28 +49,31 @@ class Venue(models.Model):
 
 
 class Agent(models.Model):
+    agent_id = models.CharField(max_length=20)
     name = models.CharField(max_length=200)
-    building = models.ForeignKey(Building, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.name
 
 class Customer(models.Model):
-    full_name = models.CharField(max_length=200)
+    customer_id = models.CharField(max_length=20)
+    customer_name = models.CharField(max_length=200)
     birth_date = models.DateField()
+    location = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.full_name
+        return self.customer_name
     
 
 class Reservation(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    reservation_id = models.CharField(max_length=20)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
     number_of_participants = models.PositiveIntegerField()
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
-    agent = models.ForeignKey(Agent, on_delete=models.SET_NULL, null=True)
 
-    def __str__(self):
-        return f"{self.customer} - {self.venue}"
+
 # Create your models here.

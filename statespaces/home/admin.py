@@ -3,13 +3,13 @@ from .models import (Building, Amenity, Venue, VenueAmenity, Agent, Customer, Re
 
 
 class BuildingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'city')
+    list_display = ('building_id', 'name', 'address', 'city')
     search_fields = ('name', 'city')
 
 
 class AmenityAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
-    search_fields = ('name',)
+    list_display = ('amenity_id', 'type', 'description')
+    search_fields = ('type',)
 
 
 class VenueAmenityInline(admin.TabularInline):
@@ -25,27 +25,24 @@ class VenueAdmin(admin.ModelAdmin):
 
 
 class AgentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'building')
+    list_display = ('agent_id', 'name')
     search_fields = ('name',)
-    list_filter = ('building',)
+    list_filter = ('agent_id',)
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'birth_date')
-    search_fields = ('full_name',)
+    list_display = ('customer_name', 'birth_date')
+    search_fields = ('customer_name',)
 
 
 class ReservationAdmin(admin.ModelAdmin):
     list_display = (
-        'customer',
-        'venue',
+        'reservation_id',
         'number_of_participants',
         'start_datetime',
         'end_datetime',
-        'agent'
     )
-    search_fields = ('customer__full_name',)
-    list_filter = ('agent', 'venue', 'start_datetime')
+    list_filter = ('start_datetime',)
 
 
 admin.site.register(Building, BuildingAdmin)

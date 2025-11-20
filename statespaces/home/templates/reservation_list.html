@@ -2,16 +2,17 @@
 
 {% block content %}
 
-<h1>Reservation List</h1>
+<h1>Reservation List (Haven't Implemented Normalized Tables Yet)</h1>
     <div>
         <ul>
             {% for reservation in reservations %}
                 <li>
-                    <strong>Guest: {{ reservation.guest_name }}</strong>
+                    <strong>Guest: {{ reservation.customer.customer_name }}</strong>
                     <ul>
                         <li>Agent: {{ reservation.agent.name }}</li>
-                        <li>Building: {{ reservation.building.name }}</li>
-                        <li>Date: {{ reservation.date }}</li>
+                        <li>Venue: {{ reservation.venue.name }}</li>
+                        <li>Building: {{ reservation.venue.building.name }}</li>
+                        <li>Date: {{ reservation.start_datetime }} - {{ reservation.end_datetime }}</li>
                     </ul>
                 </li>
             {% empty %}

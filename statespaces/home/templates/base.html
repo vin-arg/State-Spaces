@@ -10,17 +10,17 @@
     <center>
     <h1>State Spaces</h1>
     </center> 
-
-    <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'venue_list' %}">Venue List</a></li>
-            <li><a href="{% url 'agent_list' %}">Agent List</a></li>
-            <li><a href="{% url 'reservation_list' %}">Reservation List</a></li>
-            <li><a href="{% url 'book_reservation' %}">Book Reservation</a></li>
-        </ul>
-    </nav>
-
+    <div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'venue_list' %}">Venue List</a></li>
+                <li><a href="{% url 'agent_list' %}">Agent List</a></li>
+                <li><a href="{% url 'reservation_list' %}">Reservation List</a></li>
+                <li><a href="{% url 'book_reservation' %}">Book Reservation</a></li>
+            </ul>
+        </nav>
+    </div>
     <div id="content">
         {% block content %}{% endblock %}
     </div>

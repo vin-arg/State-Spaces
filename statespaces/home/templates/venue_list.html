@@ -1,31 +1,28 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
-    
-    <a>Venue List (Haven't Implemented Normalized Tables Yet)</a>
-    <div>
-        <ul>
-            {% for v in venues %}
-            <li>
-                <strong>{{ v.name }}</strong>
-                <br>Type: {{ v.venue_type }}
-                <br>Floor: {{ v.floor }}
-                <br>Building: {{ v.building.name }}
-                <br>Capacity: {{ v.capacity }}
-                <br> Renovation: 
-                    {% if v.under_renovation %}
-                        Under Renovation
-                    {% else %}
-                        Available
-                    {% endif %}
-            </li>
-            <br>
-            {% empty %}
-                <li>No venues available.</li>
-            {% endfor %}
-        </ul>
-    </div>
+<h1>Venue List <span class="subtitle">(Temporary — Not Normalized Yet)</span></h1>
+
+<div class="venue-container">
+    {% for v in venues %}
+        <div class="venue-card">
+            <h2>{{ v.name }}</h2>
+            <p><strong>Type:</strong> {{ v.venue_type }}</p>
+            <p><strong>Floor:</strong> {{ v.floor }}</p>
+            <p><strong>Building:</strong> {{ v.building.name }}</p>
+            <p><strong>Capacity:</strong> {{ v.capacity }}</p>
+            <p><strong>Renovation Status:</strong>
+                {% if v.under_renovation %}
+                    <span class="renovation-badge bad">Under Renovation</span>
+                {% else %}
+                    <span class="renovation-badge good">Available</span>
+                {% endif %}
+            </p>
+        </div>
+    {% empty %}
+        <p>No venues available.</p>
+    {% endfor %}
+</div>
 
 {% endblock %}

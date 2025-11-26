@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
-    
-    <a>Agent List (Haven't Implemented Normalized Tables Yet)</a>
+<h1>Agent List <span class="subtitle">(Temporary — Not Normalized Yet)</span></h1>
 
-    <div>
-        <ul>
-            {% for agent in agents %}
-                <li>
-                    <strong>{{ agent.name }}</strong>
-                </li>
-            {% empty %}
-                <li>No agents found.</li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="venue-container">
+    {% for agent in agents %}
+        <div class="venue-card">
+            <h2>{{ agent.name }}</h2>
+
+            {% if agent.position %}
+                <p><strong>Position:</strong> {{ agent.position }}</p>
+            {% endif %}
+
+            {% if agent.email %}
+                <p><strong>Email:</strong> {{ agent.email }}</p>
+            {% endif %}
+
+            {% if agent.phone %}
+                <p><strong>Phone:</strong> {{ agent.phone }}</p>
+            {% endif %}
+
+        </div>
+    {% empty %}
+        <p>No agents found.</p>
+    {% endfor %}
+</div>
 
 {% endblock %}

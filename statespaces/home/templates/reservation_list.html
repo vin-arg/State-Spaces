@@ -2,22 +2,28 @@
 
 {% block content %}
 
-<h1>Reservation List (Haven't Implemented Normalized Tables Yet)</h1>
-    <div>
-        <ul>
-            {% for reservation in reservations %}
-                <li>
-                    <strong>Guest: {{ reservation.customer.customer_name }}</strong>
-                    <ul>
-                        <li>Agent: {{ reservation.agent.name }}</li>
-                        <li>Venue: {{ reservation.venue.name }}</li>
-                        <li>Building: {{ reservation.venue.building.name }}</li>
-                        <li>Date: {{ reservation.start_datetime }} - {{ reservation.end_datetime }}</li>
-                    </ul>
-                </li>
-            {% empty %}
-                <li>No reservations found.</li>
-            {% endfor %}
-        </ul>
-    </div>
+<h1>Reservation List <span class="subtitle">(Temporary — Not Normalized Yet)</span></h1>
+
+<div class="venue-container">
+    {% for r in reservations %}
+        <div class="venue-card">
+            
+            <h2>Guest: {{ r.customer.customer_name }}</h2>
+
+            <p><strong>Agent:</strong> {{ r.agent.name }}</p>
+            <p><strong>Venue:</strong> {{ r.venue.name }}</p>
+            <p><strong>Building:</strong> {{ r.venue.building.name }}</p>
+
+            <p><strong>Schedule:</strong><br>
+                {{ r.start_datetime }}<br>
+                <span style="opacity: 0.7;">to</span><br>
+                {{ r.end_datetime }}
+            </p>
+
+        </div>
+    {% empty %}
+        <p>No reservations found.</p>
+    {% endfor %}
+</div>
+
 {% endblock %}

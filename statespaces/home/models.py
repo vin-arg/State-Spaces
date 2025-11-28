@@ -56,11 +56,7 @@ class Venue(models.Model):
     capacity = models.PositiveIntegerField()
     venue_type = models.CharField(max_length=100)
     floor_area = models.PositiveIntegerField()
-    building = models.ForeignKey(
-        Building,
-        on_delete=models.CASCADE,
-        to_field="building_id"
-    )
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, to_field="building_id")
     floor = models.CharField(max_length=20)
     under_renovation = models.BooleanField(default=False)
     amenities = models.ManyToManyField(Amenity, through='VenueAmenity', related_name='venues')

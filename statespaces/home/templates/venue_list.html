@@ -52,7 +52,7 @@
             <p><strong>Amenities:</strong></p>
             <ul>
                 {% for va in v.venueamenity_set.all %}
-                    <li>{{ va.amenity.type }} — x{{ va.quantity }} — {{ va.amenity.description }}</li>
+                    <li>({{ va.quantity }}) {{ va.amenity.type }} — {{ va.amenity.description }}</li>
                 {% empty %}
                     <li>No amenities listed.</li>
                 {% endfor %}

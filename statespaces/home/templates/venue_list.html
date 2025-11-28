@@ -23,6 +23,7 @@
     {% for v in venues %}
         <div class="venue-card">
             <h2>{{ v.name }}</h2>
+            <p><strong>ID:</strong> {{ v.venue_id }}</p>
             <p><strong>Building:</strong> {{ v.building.name }}</p>
             <p><strong>Location:</strong> {{ v.building.address }}, {{ v.building.city }}</p>
             <p><strong>Type:</strong> {{ v.venue_type }}</p>

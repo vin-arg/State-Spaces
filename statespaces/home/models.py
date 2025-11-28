@@ -63,13 +63,7 @@ class Venue(models.Model):
     )
     floor = models.CharField(max_length=20)
     under_renovation = models.BooleanField(default=False)
-
-    # ⭐ Many-to-many through VenueAmenity
-    amenities = models.ManyToManyField(
-        Amenity,
-        through='VenueAmenity',
-        related_name='venues'
-    )
+    amenities = models.ManyToManyField(Amenity, through='VenueAmenity', related_name='venues')
 
     def save(self, *args, **kwargs):
         if not self.venue_id:
@@ -81,16 +75,8 @@ class Venue(models.Model):
 
 
 class VenueAmenity(models.Model):
-    venue = models.ForeignKey(
-        Venue,
-        on_delete=models.CASCADE,
-        to_field="venue_id"
-    )
-    amenity = models.ForeignKey(
-        Amenity,
-        on_delete=models.CASCADE,
-        to_field="amenity_id"
-    )
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
+    amenity = models.ForeignKey(Amenity, on_delete=models.CASCADE, to_field="amenity_id")
     quantity = models.PositiveIntegerField(default=1)
 
     class Meta:
@@ -130,21 +116,9 @@ class Customer(models.Model):
 
 class Reservation(models.Model):
     reservation_id = models.CharField(max_length=20, primary_key=True, editable=False)
-    venue = models.ForeignKey(
-        Venue,
-        on_delete=models.CASCADE,
-        to_field="venue_id"
-    )
-    customer = models.ForeignKey(
-        Customer,
-        on_delete=models.CASCADE,
-        to_field="customer_id"
-    )
-    agent = models.ForeignKey(
-        Agent,
-        on_delete=models.CASCADE,
-        to_field="agent_id"
-    )
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, to_field="customer_id")
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE, to_field="agent_id")
     number_of_participants = models.PositiveIntegerField()
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()

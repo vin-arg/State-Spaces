@@ -8,10 +8,7 @@ def home(request):
 
 def venue_list(request):
     selected_building = request.GET.get("building")
-
-    # Prefetch amenities with quantities
     venues = (Venue.objects.select_related("building").prefetch_related("venueamenity_set__amenity"))
-
     buildings = Building.objects.all()
 
     if selected_building:

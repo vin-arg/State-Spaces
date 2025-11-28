@@ -7,18 +7,26 @@
 <div class="venue-container">
     {% for agent in agents %}
         <div class="venue-card">
-            <h2>{{ agent.name }}</h2>
+            <h2>{{ agent.agent_name }}</h2>
 
-            {% if agent.position %}
-                <p><strong>Position:</strong> {{ agent.position }}</p>
-            {% endif %}
-
-            {% if agent.email %}
-                <p><strong>Email:</strong> {{ agent.email }}</p>
-            {% endif %}
-
-            {% if agent.phone %}
-                <p><strong>Phone:</strong> {{ agent.phone }}</p>
+            {% if agent.venue_id %}
+                <p><strong>Venue Name:</strong> {{ agent.venue_id.venue_name }}</p>
+                <p><strong>Type:</strong> {{ agent.venue_id.type }}</p>
+                <p><strong>Location:</strong> 
+                    {{ agent.venue_id.building_id.address }}, {{ agent.venue_id.building_id.city }}
+                </p>
+                <p><strong>Floor Area:</strong> {{ agent.venue_id.floor_area }}</p>
+                <p><strong>Capacity:</strong> {{ agent.venue_id.capacity }}</p>
+                <p><strong>Amenities:</strong></p>
+                <ul>
+                    {% for va in agent.venue_id.venueamenity_set.all %}
+                        <li>({{ va.count }}) {{ va.amenity_id.type }} — {{ va.amenity_id.description }}</li>
+                    {% empty %}
+                        <li>No amenities listed.</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No venue assigned.</p>
             {% endif %}
 
         </div>
@@ -28,3 +36,4 @@
 </div>
 
 {% endblock %}
+

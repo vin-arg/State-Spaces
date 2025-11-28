@@ -4,7 +4,7 @@
 
 <h1>Venue List <span class="subtitle">(Temporary — Not Normalized Yet)</span></h1>
 
-<form method="GET" class="filter-form">
+<!-- <form method="GET" class="filter-form">
     <label for="building">Filter by Building:</label>
     <select name="building" id="building" onchange="this.form.submit()">
 
@@ -17,7 +17,38 @@
             </option>
         {% endfor %}
     </select>
+</form> -->
+
+<form method="GET" class="filter-form">
+    <label for="building">Filter by Building:</label>
+    <select name="building" id="building" onchange="this.form.submit()">
+        <option value="">All Buildings</option>
+        {% for b in buildings %}
+            <option value="{{ b.building_id }}" 
+                {% if b.building_id == selected_building %}selected{% endif %}>
+                {{ b.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label for="capacity">Minimum Capacity:</label>
+    <input type="number" name="capacity" id="capacity"
+           value="{{ selected_capacity }}" min="1"
+           onchange="this.form.submit()">
+
+    <label for="venue_type">Filter by Type:</label>
+    <select name="venue_type" id="venue_type" onchange="this.form.submit()">
+        <option value="">All Types</option>
+        {% for t in venue_types %}
+            <option value="{{ t }}" 
+                {% if t == selected_type %}selected{% endif %}>
+                {{ t }}
+            </option>
+        {% endfor %}
+    </select>
 </form>
+
+
 
 <div class="venue-container">
     {% for v in venues %}

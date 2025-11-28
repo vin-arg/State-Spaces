@@ -6,18 +6,6 @@ def home(request):
     return render(request, 'home.html', {'home': home})
 
 
-# def venue_list(request):
-#     selected_building = request.GET.get("building")
-#     venues = (Venue.objects.select_related("building").prefetch_related("venueamenity_set__amenity"))
-#     buildings = Building.objects.all()
-
-#     if selected_building:
-#         venues = venues.filter(building_id=selected_building)
-
-#     context = {"venues": venues, "buildings": buildings, "selected_building": selected_building,}
-
-#     return render(request, "venue_list.html", context)
-
 def venue_list(request):
     selected_building = request.GET.get("building")
     selected_capacity = request.GET.get("capacity")

@@ -8,15 +8,37 @@ def home(request):
 
 def venue_list(request):
     selected_building = request.GET.get("building")
-    venues = (Venue.objects.select_related("building").prefetch_related("venueamenity_set__amenity"))
+    selected_capacity = request.GET.get("capacity")
+    selected_type = request.GET.get("venue_type")
+
+    venues = Venue.objects.all()
     buildings = Building.objects.all()
 
+    # Get distinct venue types
+    venue_types = Venue.objects.values_list("venue_type", flat=True).distinct()
+
+    # Filter by building
     if selected_building:
-        venues = venues.filter(building_id=selected_building)
+        venues = venues.filter(building__building_id=selected_building)
 
-    context = {"venues": venues, "buildings": buildings, "selected_building": selected_building,}
+    # Filter by capacity
+    if selected_capacity:
+        venues = venues.filter(capacity__gte=selected_capacity)
 
-    return render(request, "venue_list.html", context)
+    # Filter by venue type
+    if selected_type:
+        venues = venues.filter(venue_type=selected_type)
+
+    return render(request, "venue_list.html", {
+        "venues": venues,
+        "buildings": buildings,
+        "venue_types": venue_types,
+        "selected_building": selected_building,
+        "selected_capacity": selected_capacity,
+        "selected_type": selected_type,
+    })
+
+
 
 
 def agent_list(request):

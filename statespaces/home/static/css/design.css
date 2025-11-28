@@ -146,3 +146,14 @@ h2, h3 {
     line-height: 1.5;
     color: #342923;
 }
+
+
+.filter-form {
+    margin-bottom: 20px;
+}
+
+.filter-form select {
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}

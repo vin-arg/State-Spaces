@@ -11,23 +11,34 @@
         <option value="">All Buildings</option>
 
         {% for b in buildings %}
-            <option value="{{ b.building_id }}" {% if b.building_id == selected_building %}selected{% endif %}>
+            <option value="{{ b.building_id }}" 
+                {% if b.building_id == selected_building %}selected{% endif %}>
                 {{ b.name }}
             </option>
         {% endfor %}
     </select>
 </form>
 
-
-
 <div class="venue-container">
     {% for v in venues %}
         <div class="venue-card">
             <h2>{{ v.name }}</h2>
-            <p><strong>Type:</strong> {{ v.venue_type }}</p>
-            <p><strong>Floor:</strong> {{ v.floor }}</p>
+            <p><strong>ID:</strong> {{ v.venue_id }}</p>
             <p><strong>Building:</strong> {{ v.building.name }}</p>
+            <p><strong>Location:</strong> {{ v.building.address }}, {{ v.building.city }}</p>
+            <p><strong>Type:</strong> {{ v.venue_type }}</p>
             <p><strong>Capacity:</strong> {{ v.capacity }}</p>
+            <p><strong>Floor:</strong> {{ v.floor }}</p>
+
+            <p><strong>Amenities:</strong></p>
+            <ul>
+                {% for va in v.venueamenity_set.all %}
+                    <li>{{ va.amenity.type }} — x{{ va.quantity }} — {{ va.amenity.description }}</li>
+                {% empty %}
+                    <li>No amenities listed.</li>
+                {% endfor %}
+            </ul>
+
             <p><strong>Renovation Status:</strong>
                 {% if v.under_renovation %}
                     <br><span class="renovation-badge bad">Under Renovation</span>

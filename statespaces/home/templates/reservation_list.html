@@ -10,13 +10,16 @@
             
             <h2>Guest: {{ r.customer_id.customer_name }}</h2>
             <p><strong>Venue:</strong> {{ r.venue_id.venue_name }}</p>
-            <p><strong>Building:</strong> {{ r.venue_id.building_id.name }}</p>
+            <p><strong>Building:</strong> {{ r.venue_id.building_id.building_name }}</p>
+            <p><strong>Location:</strong> {{ r.venue_id.building_id.address }}, {{ r.venue_id.building_id.city }}</p>
+            <p><strong>Participants:</strong> {{ r.participants_qty }}</p>
 
             <p><strong>Schedule:</strong><br>
                 {{ r.start_date_time }}<br>
                 <span style="opacity: 0.7;">to</span><br>
                 {{ r.end_date_time }}
             </p>
+            <p><strong>Agent:</strong> {{ r.venue_id.agent_id.agent_name }}</p>
 
         </div>
     {% empty %}

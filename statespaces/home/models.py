@@ -59,6 +59,8 @@ class Venue(models.Model):
     building_id = models.ForeignKey(Building, on_delete=models.CASCADE, to_field="building_id")
     floor = models.CharField(max_length=20)
     under_renovation = models.BooleanField(default=False)
+    agent_id = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True, to_field="agent_id")
+    
     
 
     def save(self, *args, **kwargs):
@@ -84,6 +86,10 @@ class VenueAmenity(models.Model):
 class Agent(models.Model):
     agent_id = models.CharField(max_length=20, primary_key=True, editable=False)
     agent_name = models.CharField(max_length=200)
+    building_id = models.ForeignKey(Building, on_delete=models.CASCADE,  null=True, blank=True, to_field="building_id")
+    #vanue needed to call the other values but not part of normalized so im not sure
+    venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE, null=True, blank=True, to_field="venue_id")
+
 
     def save(self, *args, **kwargs):
         if not self.agent_id:

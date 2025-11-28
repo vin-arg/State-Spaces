@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Utility function to generate incremental IDs
 def generate_auto_id(model, prefix, digits=3):
-    last = model.objects.order_by("-"+model._meta.pk.name).first()
+    last = model.objects.order_by("-" + model._meta.pk.name).first()
     if last:
         last_num = last.pk.replace(prefix, "")
         next_num = int(last_num) + 1 if last_num.isdigit() else 1
@@ -64,6 +64,13 @@ class Venue(models.Model):
     floor = models.CharField(max_length=20)
     under_renovation = models.BooleanField(default=False)
 
+    # ⭐ Many-to-many through VenueAmenity
+    amenities = models.ManyToManyField(
+        Amenity,
+        through='VenueAmenity',
+        related_name='venues'
+    )
+
     def save(self, *args, **kwargs):
         if not self.venue_id:
             self.venue_id = generate_auto_id(Venue, "VEN")
@@ -85,6 +92,12 @@ class VenueAmenity(models.Model):
         to_field="amenity_id"
     )
     quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ('venue', 'amenity')  # prevents duplicates
+
+    def __str__(self):
+        return f"{self.venue.name} — {self.amenity.type} (x{self.quantity})"
 
 
 class Agent(models.Model):
@@ -140,3 +153,6 @@ class Reservation(models.Model):
         if not self.reservation_id:
             self.reservation_id = generate_auto_id(Reservation, "RES")
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.reservation_id

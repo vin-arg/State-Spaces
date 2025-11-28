@@ -9,25 +9,23 @@ def home(request):
 def venue_list(request):
     selected_building = request.GET.get("building")
     selected_capacity = request.GET.get("capacity")
-    selected_type = request.GET.get("venue_type")
+    selected_type = request.GET.get("type")
 
     venues = Venue.objects.all()
     buildings = Building.objects.all()
+    venue_types = Venue.objects.values_list("type", flat=True).distinct()
 
-    # Get distinct venue types
-    venue_types = Venue.objects.values_list("venue_type", flat=True).distinct()
-
-    # Filter by building
+    
     if selected_building:
-        venues = venues.filter(building__building_id=selected_building)
+        venues = venues.filter(building_id__building_id=selected_building)
 
     # Filter by capacity
     if selected_capacity:
         venues = venues.filter(capacity__gte=selected_capacity)
 
-    # Filter by venue type
+    # Filter by type
     if selected_type:
-        venues = venues.filter(venue_type=selected_type)
+        venues = venues.filter(type=selected_type)
 
     return render(request, "venue_list.html", {
         "venues": venues,
@@ -37,6 +35,7 @@ def venue_list(request):
         "selected_capacity": selected_capacity,
         "selected_type": selected_type,
     })
+
 
 
 
@@ -57,5 +56,5 @@ def book_reservation(request):
 
 
 def reservation_list(request):
-    reservations = Reservation.objects.select_related("venue", "customer", "agent")
+    reservations = Reservation.objects.select_related("venue_id", "customer_id")
     return render(request, 'reservation_list.html', {'reservations': reservations})

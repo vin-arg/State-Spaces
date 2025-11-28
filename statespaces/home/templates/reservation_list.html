@@ -8,16 +8,14 @@
     {% for r in reservations %}
         <div class="venue-card">
             
-            <h2>Guest: {{ r.customer.customer_name }}</h2>
-
-            <p><strong>Agent:</strong> {{ r.agent.name }}</p>
-            <p><strong>Venue:</strong> {{ r.venue.name }}</p>
-            <p><strong>Building:</strong> {{ r.venue.building.name }}</p>
+            <h2>Guest: {{ r.customer_id.customer_name }}</h2>
+            <p><strong>Venue:</strong> {{ r.venue_id.venue_name }}</p>
+            <p><strong>Building:</strong> {{ r.venue_id.building_id.name }}</p>
 
             <p><strong>Schedule:</strong><br>
-                {{ r.start_datetime }}<br>
+                {{ r.start_date_time }}<br>
                 <span style="opacity: 0.7;">to</span><br>
-                {{ r.end_datetime }}
+                {{ r.end_date_time }}
             </p>
 
         </div>

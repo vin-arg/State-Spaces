@@ -7,19 +7,9 @@
 <div class="venue-container">
     {% for agent in agents %}
         <div class="venue-card">
-            <h2>{{ agent.name }}</h2>
+            <h2>{{ agent.agent_name }}</h2>
 
-            {% if agent.position %}
-                <p><strong>Position:</strong> {{ agent.position }}</p>
-            {% endif %}
-
-            {% if agent.email %}
-                <p><strong>Email:</strong> {{ agent.email }}</p>
-            {% endif %}
-
-            {% if agent.phone %}
-                <p><strong>Phone:</strong> {{ agent.phone }}</p>
-            {% endif %}
+            
 
         </div>
     {% empty %}

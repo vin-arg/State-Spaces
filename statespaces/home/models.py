@@ -88,7 +88,7 @@ class Agent(models.Model):
     agent_name = models.CharField(max_length=200)
     building_id = models.ForeignKey(Building, on_delete=models.CASCADE,  null=True, blank=True, to_field="building_id")
     #vanue needed to call the other values but not part of normalized so im not sure
-    venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE, null=True, blank=True, to_field="venue_id")
+    #venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE, null=True, blank=True, to_field="venue_id")
 
 
     def save(self, *args, **kwargs):

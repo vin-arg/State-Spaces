@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 # Utility function to generate incremental IDs
-def generate_auto_id(model, prefix, digits=3):
+def generate_auto_id(model, prefix, digits=4):
     last = model.objects.order_by("-" + model._meta.pk.name).first()
     if last:
         last_num = last.pk.replace(prefix, "")

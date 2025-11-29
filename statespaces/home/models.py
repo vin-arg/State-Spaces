@@ -70,7 +70,9 @@ class Venue(models.Model):
     agent = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True, to_field="agent_id")
 
     def v_id(self):
-        return f"{self.venue_id:07d}"
+    # ensure venue_id is treated as a string and zero-padded
+        return str(self.venue_id).zfill(7)
+
     def __str__(self):
         return self.venue_name
     

@@ -24,7 +24,7 @@ class VenueAdmin(admin.ModelAdmin):
     inlines = [VenueAmenityInline]
 
     def venue_id_format(self, obj):
-        return f"{obj.venue_id:07d}"
+        return obj.v_id()
     venue_id_format.short_description = "Venue ID"
 
 

@@ -18,10 +18,14 @@ class VenueAmenityInline(admin.TabularInline):
 
 
 class VenueAdmin(admin.ModelAdmin):
-    list_display = ('venue_id', 'venue_name', 'type', 'building_id', 'floor', 'capacity', 'under_renovation')
+    list_display = ('venue_id_format', 'venue_name', 'type', 'building_id', 'floor', 'capacity', 'under_renovation')
     search_fields = ('venue_name', 'venue_id')
     list_filter = ('type', 'building_id', 'under_renovation')
     inlines = [VenueAmenityInline]
+
+    def venue_id_format(self, obj):
+        return f"{obj.venue_id:07d}"
+    venue_id_format.short_description = "Venue ID"
 
 
 class AgentAdmin(admin.ModelAdmin):

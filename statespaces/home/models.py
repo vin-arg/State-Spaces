@@ -34,6 +34,10 @@ class Building(models.Model):
 
     def __str__(self):
         return self.building_name
+    
+    class Meta:
+        managed=False
+        db_table='building'
 
 
 class Amenity(models.Model):
@@ -49,6 +53,10 @@ class Amenity(models.Model):
     def __str__(self):
         return self.type
 
+    class Meta:
+        managed = False
+        db_table='amenity'
+
 
 class Venue(models.Model):
     venue_id = models.AutoField(primary_key=True)
@@ -56,20 +64,24 @@ class Venue(models.Model):
     capacity = models.PositiveIntegerField()
     type = models.CharField(max_length=100)
     floor_area = models.PositiveIntegerField()
-    building_id = models.ForeignKey(Building, on_delete=models.CASCADE, to_field="building_id")
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, to_field="building_id")
     floor = models.CharField(max_length=20)
     under_renovation = models.BooleanField(default=False)
-    agent_id = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True, to_field="agent_id")
+    agent = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True, to_field="agent_id")
 
     def v_id(self):
         return f"{self.venue_id:07d}"
     def __str__(self):
         return self.venue_name
+    
+    class Meta:
+        managed=False
+        db_table='venue'
 
 
 class VenueAmenity(models.Model):
-    venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
-    amenity_id = models.ForeignKey(Amenity, on_delete=models.CASCADE, to_field="amenity_id")
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
+    amenity = models.ForeignKey(Amenity, on_delete=models.CASCADE, to_field="amenity_id")
     count = models.PositiveIntegerField(default=1)
 
     class Meta:
@@ -77,11 +89,14 @@ class VenueAmenity(models.Model):
 
     def __str__(self):
         return f"{self.venue_id.venue_name} — {self.amenity_id.type} (x{self.count})"
+    class Meta:
+        managed=False
+        db_table='venueamenity'
 
 class Agent(models.Model):
     agent_id = models.CharField(max_length=20, primary_key=True, editable=False)
     agent_name = models.CharField(max_length=200)
-    building_id = models.ForeignKey(Building, on_delete=models.CASCADE,  null=True, blank=True, to_field="building_id")
+    building = models.ForeignKey(Building, on_delete=models.CASCADE,  null=True, blank=True, to_field="building_id")
 
 
     def save(self, *args, **kwargs):
@@ -91,6 +106,10 @@ class Agent(models.Model):
 
     def __str__(self):
         return self.agent_name
+    
+    class Meta:
+        managed=False
+        db_table='agent'
 
 
 class Customer(models.Model):
@@ -106,12 +125,16 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.customer_name
+    
+    class Meta:
+        managed=False
+        db_table='customer'
 
 
 class Reservation(models.Model):
     reservation_id = models.CharField(max_length=20, primary_key=True, editable=False)
-    venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
-    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE, to_field="customer_id")
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, to_field="customer_id")
     participants_qty = models.PositiveIntegerField()
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
@@ -124,12 +147,16 @@ class Reservation(models.Model):
     def __str__(self):
         return self.reservation_id
     
+    class Meta:
+        managed=False
+        db_table='reservation'
+    
 
 class Renovation(models.Model):
     renovation_id = models.CharField(max_length=20, primary_key=True, editable=False)
     start_date_time = models.DateTimeField()
     end_date_time = models.DateTimeField()
-    venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
 
     def save(self, *args, **kwargs):
         if not self.renovation_id:
@@ -137,11 +164,14 @@ class Renovation(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.renovation_id} — {self.venue_id.venue_name}"
+        return f"{self.renovation_id} — {self.venue.venue_name}"
+    class Meta:
+        managed=False
+        db_table='renovation'
     
 
 class Team(models.Model):
-    agent_id = models.ForeignKey(Agent, on_delete=models.CASCADE, to_field="agent_id")
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE, to_field="agent_id")
     team_name = models.CharField(max_length=200)
     job = models.CharField(max_length=200)
 
@@ -150,3 +180,7 @@ class Team(models.Model):
 
     def __str__(self):
         return f"{self.team_name} — {self.agent_id.agent_name}"
+
+    class Meta:
+        managed=False
+        db_table='team'

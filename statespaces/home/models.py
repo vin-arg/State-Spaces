@@ -29,7 +29,7 @@ class Building(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.building_id:
-            self.building_id = generate_auto_id(Building, "BLD")
+            self.building_id = generate_auto_id(Building, "BLDG")
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -43,7 +43,7 @@ class Amenity(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.amenity_id:
-            self.amenity_id = generate_auto_id(Amenity, "AME")
+            self.amenity_id = generate_auto_id(Amenity, "AMNT")
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -51,7 +51,7 @@ class Amenity(models.Model):
 
 
 class Venue(models.Model):
-    venue_id = models.CharField(max_length=20, primary_key=True, editable=False)
+    venue_id = models.AutoField(primary_key=True)
     venue_name = models.CharField(max_length=200)
     capacity = models.PositiveIntegerField()
     type = models.CharField(max_length=100)
@@ -60,14 +60,9 @@ class Venue(models.Model):
     floor = models.CharField(max_length=20)
     under_renovation = models.BooleanField(default=False)
     agent_id = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True, to_field="agent_id")
-    
-    
 
-    def save(self, *args, **kwargs):
-        if not self.venue_id:
-            self.venue_id = generate_auto_id(Venue, "VEN")
-        super().save(*args, **kwargs)
-
+    def v_id(self):
+        return f"{self.venue_id:07d}"
     def __str__(self):
         return self.venue_name
 
@@ -91,7 +86,7 @@ class Agent(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.agent_id:
-            self.agent_id = generate_auto_id(Agent, "AGT")
+            self.agent_id = generate_auto_id(Agent, "AGNT")
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -106,7 +101,7 @@ class Customer(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.customer_id:
-            self.customer_id = generate_auto_id(Customer, "CUS")
+            self.customer_id = generate_auto_id(Customer, "CSTM")
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -123,7 +118,7 @@ class Reservation(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.reservation_id:
-            self.reservation_id = generate_auto_id(Reservation, "RES")
+            self.reservation_id = generate_auto_id(Reservation, "RSVT")
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -138,7 +133,7 @@ class Renovation(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.renovation_id:
-            self.renovation_id = generate_auto_id(Renovation, "REN")
+            self.renovation_id = generate_auto_id(Renovation, "RNVT")
         super().save(*args, **kwargs)
 
     def __str__(self):

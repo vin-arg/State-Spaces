@@ -68,6 +68,7 @@ class Venue(models.Model):
 
 
 class VenueAmenity(models.Model):
+    pk = models.CompositePrimaryKey("venue_id", "amenity_id")
     venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE, to_field="venue_id")
     amenity_id = models.ForeignKey(Amenity, on_delete=models.CASCADE, to_field="amenity_id")
     count = models.PositiveIntegerField(default=1)

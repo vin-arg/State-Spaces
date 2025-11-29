@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import (Building, Amenity, Venue, VenueAmenity, Agent, Customer, Reservation, Renovation, Team)
-
+from .models import Agent, Building, Venue, VenueAmenity, Amenity, Renovation, Customer, Reservation, Team
 
 class BuildingAdmin(admin.ModelAdmin):
     list_display = ('building_id', 'building_name', 'address', 'city')
@@ -24,7 +23,7 @@ class VenueAdmin(admin.ModelAdmin):
     inlines = [VenueAmenityInline]
 
     def venue_id_format(self, obj):
-        return obj.v_id()
+        return f"{obj.venue_id:07d}"
     venue_id_format.short_description = "Venue ID"
 
 
@@ -75,4 +74,3 @@ admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Reservation, ReservationAdmin)
 admin.site.register(Renovation, RenovationAdmin)
 admin.site.register(Team, TeamAdmin)
-# Register your models here.

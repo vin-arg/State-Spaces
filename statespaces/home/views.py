@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from .models import Home, Venue, Agent, Reservation, Building, VenueAmenity
+from .models import Venue, Agent, Reservation, Building, VenueAmenity
 
 def home(request):
-    home = Home.objects.all()
-    return render(request, 'home.html', {'home': home})
+    return render(request, 'home.html')
 
 
 def venue_list(request):

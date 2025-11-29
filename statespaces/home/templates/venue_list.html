@@ -12,7 +12,7 @@
         <select name="building" id="building" onchange="this.form.submit()">
             <option value="">All Buildings</option>
             {% for b in buildings %}
-                <option value="{{ b.building_id }}" {% if selected_building == b.building_id %}selected{% endif %}>
+                <option value="{{ b.building }}" {% if selected_building == b.building %}selected{% endif %}>
                     {{ b.building_name }}
                 </option>
 
@@ -44,8 +44,8 @@
         <div class="venue-card">
             <h2>{{ v.venue_name }}</h2>
             <p><strong>ID:</strong> {{ v.v_id }}</p>
-            <p><strong>Building:</strong> {{ v.building_id.building_name }}</p>
-            <p><strong>Location:</strong> {{ v.building_id.address }}, {{ v.building_id.city }}</p>
+            <p><strong>Building:</strong> {{ v.building.building_name }}</p>
+            <p><strong>Location:</strong> {{ v.building.address }}, {{ v.building.city }}</p>
             <p><strong>Type:</strong> {{ v.type }}</p>
             <p><strong>Capacity:</strong> {{ v.capacity }}</p>
             <p><strong>Floor:</strong> {{ v.floor }}</p>

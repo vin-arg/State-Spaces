@@ -1,5 +1,7 @@
 DROP DATABASE IF EXISTS ssdatabase;
 DROP USER IF EXISTS ssadmin;
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
 CREATE DATABASE ssdatabase;
 CREATE USER ssadmin WITH PASSWORD 'ssadmin';
 ALTER ROLE ssadmin SET client_encoding TO 'utf8';
